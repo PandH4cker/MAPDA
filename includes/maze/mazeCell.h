@@ -7,11 +7,7 @@
 
 #include <stdbool.h>
 
-#if defined(__CYGWIN__) || defined(_WIN32) || defined(_WIN64) || defined(__MINGW32__)
-#include <curses.h>
-#else
-#include <ncurses.h>
-#endif
+#include "init.h"
 
 typedef unsigned short MazeCell;
 
