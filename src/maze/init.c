@@ -99,6 +99,7 @@ int choiceMenu(WINDOW * win_in, WINDOW * win)
 
         }
         choice = wgetch(win_in); // On récupère le choix
+        mvwprintw(win_in, 10, 10, "choice = %d", choice);
         switch(choice)
         {
             /*Si on appuie fleche haut*/

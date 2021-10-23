@@ -50,16 +50,14 @@ int main(int argc, char ** argv) {
         wrefresh(win_in);
         /*Récupération du choix*/
         choice = choiceMenu(win_in,win);
-
+        return 0;
         if (choice == 3)
         {
             delwin(win_in);
             delwin(win);
             endwin();
-            goto stopN;
+            return EXIT_SUCCESS;
         }
-    } while (1);
-    stopN:
-    endwin();
-    return EXIT_SUCCESS;
+    } while (choice != 3);
+    return EXIT_FAILURE;
 }
