@@ -20,6 +20,7 @@ int main(int argc, char ** argv) {
     MazeCell rightWall = 0;
     SET_BIT(rightWall, 0);
 
+    int choice;
     do
     {
         int width, height, startY, startX;
@@ -33,7 +34,32 @@ int main(int argc, char ** argv) {
         box(win, (int)c, (int)c);
         wrefresh(win);
         wbkgd(win, COLOR_PAIR(3));
-    } while (true);
 
+        int elt_y,elt_x;
+        /*Récupération des coordonnées maximales de la fenêtre*/
+        getmaxyx(win,elt_y,elt_x);
+        /*Affichage du menu*/
+        printMenu(win,elt_y/2 - 20,elt_x/2 - 40);
+
+        /*Création de la box Menu*/
+        WINDOW * win_in = NULL;
+        win_in = newwin(10,100,elt_y/2,elt_x/2 - 40);
+        refresh();
+        wrefresh(win);
+        box(win_in,0,0);
+        wrefresh(win_in);
+        /*Récupération du choix*/
+        choice = choiceMenu(win_in,win);
+
+        if (choice == 3)
+        {
+            delwin(win_in);
+            delwin(win);
+            endwin();
+            goto stopN;
+        }
+    } while (1);
+    stopN:
+    endwin();
     return EXIT_SUCCESS;
 }

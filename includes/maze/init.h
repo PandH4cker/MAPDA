@@ -14,5 +14,8 @@
 void ncursesInitColors();
 void ncursesInit();
 void ncursesInitMouse();
+void printMenu(WINDOW * win,int y,int x);
+int choiceMenu(WINDOW * win_in, WINDOW * win);
+
 
 #endif //MAPDA_INIT_H

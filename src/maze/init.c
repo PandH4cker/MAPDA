@@ -49,3 +49,83 @@ void ncursesInitMouse()
         exit(EXIT_FAILURE);
     }
 }
+
+void printMenu(WINDOW * win,int y,int x)
+{
+    /**PICROSS ASCII ART**/
+    mvwprintw(win,y,x,"    ``         ``....````````````` `                         ` `:::::`````````....:''';;;;;;;;;;,");
+    mvwprintw(win,++y,x,"    ###########@@####@#@#######@##@###########################################@@#;::,,,,,::,::,,:");
+    mvwprintw(win,++y,x,"    +@,,,,,,,,,,@+,,:#:,,,,,,,,,:;,,,,,,,,,:@@,,,,,,,,,:@@,,,,,,,,,,@#,,,,,,,,,,@;:,```````````,:");
+    mvwprintw(win,++y,x,"    +@          ,#  ,+          :;          ';          +:          @,         `@;:,` ` ``` ` `::");
+    mvwprintw(win,++y,x,"    +@      `   ,#  :+          ;;  ``````  ':  ``` ``  +,  ````````#,  ````````@;:,``,,:,:,,.`::");
+    mvwprintw(win,++y,x,"    +@  :####+  :#  :+  ;#######+;  ;####;  ':` +####:` +:  +#######@:  #########;:,``,:,,,:,``::");
+    mvwprintw(win,++y,x,"    +@  ::::::``:#  ;+ `;########;  ::,::: `;;  #,:,,:``+:``,,:::::;#,  :::::::'#;:,``,,,,,,,``::");
+    mvwprintw(win,++y,x,"    +@ `````````:# `;+``;########;``````` ``';` #,,,,:``+: ````````.#:``````````@;::` ``.`` ` `,:");
+    mvwprintw(win,++y,x,"    +@ `````````'# `;+``;########;``` ``` `.#;` #,::,:``+'.`````````#;`````````.@;;,````.``````::");
+    mvwprintw(win,++y,x,"    +#``;######### `;+``;#######@;``+##;``'@#;``+;:::;``+########:``#########:`.@;:,``,::,::,::::");
+    mvwprintw(win,++y,x,"    +#``;#########``;+``:;::::;:''``'@#'``::''``;;:;::``+;::::::;:``#:::::::::`.@;:,``,:,,:,:::::");
+    mvwprintw(win,++y,x,"    +#``;#########``;+````````.`''``+##'````';``````````+;`````````.#;`````````.@;:,```````````,: ");
+    mvwprintw(win,++y,x,"    +#``;#########``;@.`````````''``+###````++.````````,@;`````````:#;`````````:@:;,```````````:: ");
+    mvwprintw(win,++y,x,"    +#@@##########@###@##@#########@##@#@@#@##@@##@@###@###@#@#@#@#@###@@@@@@@@@+`:::,:,::::::::: ");
+    mvwprintw(win,++y,x,"    +''''''''''';'''''''''''''''''''''''''''''''''''''''''''''''''';''''''''''';..;,,,,,,,,,,,,,; ");
+/**END ART**/
+}
+
+/*Affichage sur une fenêtre un menu et retourne le choix de l'utilisateur*/
+int choiceMenu(WINDOW * win_in, WINDOW * win)
+{
+    /**Box MENU**/
+    int elt_y1,elt_x1;
+    getmaxyx(win_in,elt_y1,elt_x1); // Récupère les coordonées maximales de la fenêtre
+    wattron(win_in,A_BOLD); // Attribution type gras au texte
+    mvwprintw(win_in,0,elt_x1/2 - 5,"###MENU###");
+    wattroff(win_in,A_BOLD); // Désattribution
+    wrefresh(win_in);
+    keypad(win_in,TRUE); // Activation des touches
+    int i,highlight = 0,choice;
+/*Initialisation du menu*/
+    char choices[3][15] = {"» Aléatoire",
+                           "» Image",
+                           "» Quitter"};
+    while(true)
+    {
+        for(i = 0; i < 3; i++)
+        {
+            /* Si on est sur le highlight */
+            if(i == highlight)
+                wattron(win_in,A_REVERSE); // On surligne le texte
+            mvwprintw(win_in,elt_y1/2 - 1 + i,1,"%s",choices[i]); // Affichage en ligne des choix
+            wattroff(win_in,A_REVERSE); // Désattribution
+
+        }
+        choice = wgetch(win_in); // On récupère le choix
+        switch(choice)
+        {
+            /*Si on appuie fleche haut*/
+            case KEY_UP:
+                /*On joue un son*/
+                //system("play -q soundtrack/beep-07.mp3 &");
+                highlight--;
+                /* Replacement de l'highlight si on sort du tableau */
+                if(highlight == -1) highlight = 2;
+                break;
+                /*Si on appuie fleche bas*/
+            case KEY_DOWN:
+                /*On joue un son*/
+                //system("play -q soundtrack/beep-07.mp3 &");
+                highlight++;
+                /* Replacement de l'highlight si on sort du tableau */
+                if(highlight == 3) highlight = 0;
+                break;
+                /*Par défaut on ne fait rien*/
+            default:
+                break;
+        }
+        /**10 is the numerical representation for LF (LineFeed / '/n')**/
+        if(choice == 10)
+        {
+            return highlight; //Retourne le choix
+        }
+    }
+/**END Box MENU**/
+}
