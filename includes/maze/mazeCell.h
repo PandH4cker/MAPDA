@@ -9,12 +9,23 @@
 
 #include "init.h"
 
-typedef unsigned short MazeCell;
+typedef unsigned short CellValue;
 
-inline bool isAboveUncrossable(MazeCell cell);
-inline bool isBelowUncrossable(MazeCell cell);
-inline bool isLeftUncrossable(MazeCell cell);
-inline bool isRightUncrossable(MazeCell cell);
+typedef struct Position
+{
+    int x,y;
+}Position;
+
+typedef struct MazeCell
+{
+    CellValue cellValue;
+    Position p;
+}MazeCell;
+
+bool isAboveUncrossable(MazeCell cell);
+bool isBelowUncrossable(MazeCell cell);
+bool isLeftUncrossable(MazeCell cell);
+bool isRightUncrossable(MazeCell cell);
 void printCell(MazeCell cell, WINDOW * win);
 
 #endif //MAPDA_MAZECELL_H

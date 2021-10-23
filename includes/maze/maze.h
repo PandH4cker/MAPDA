@@ -7,6 +7,13 @@
 
 #include "mazeCell.h"
 
-typedef MazeCell * Maze;
+typedef struct Maze
+{
+    int nbLine, nbCol;
+    Position entrypoint, out;
+    MazeCell ** cells;
+}Maze;
+
+Maze fromFile(const char * filename);
 
 #endif //MAPDA_MAZE_H

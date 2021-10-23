@@ -32,6 +32,8 @@ void ncursesInit()
     keypad(stdscr, TRUE);	/* Active les touches spécifiques */
     refresh();            /* Met a jour l'affichage */
     curs_set(FALSE);      /* Masque le curseur */
+    ncursesInitColors();
+    ncursesInitMouse();
 }
 
 void ncursesInitMouse()
@@ -85,7 +87,7 @@ int choiceMenu(WINDOW * win_in, WINDOW * win)
     int i,highlight = 0,choice;
 /*Initialisation du menu*/
     char choices[3][15] = {"» Aléatoire",
-                           "» Image",
+                           "» Fichier",
                            "» Quitter"};
     while(true)
     {
