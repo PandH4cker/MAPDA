@@ -42,163 +42,10 @@ int main(int argc, char ** argv) {
         getmaxyx(win, eltY, eltX);
         int middleX = 5, middleY = 5;
 
-        for (int i = 0; i < m.nbLine; ++i)
-        {
-            for (int j = 0; j < m.nbCol; ++j)
-            {
-                if (isLeftUncrossable(m.cells[i][j]))
-                {
-                    mvwprintw(win,middleY,middleX - 1, "║");
-                    if (j == 0 && i != m.nbLine - 1) // Left border
-                    {
-                        if (isBelowUncrossable(m.cells[i][j]))
-                            mvwprintw(win,middleY + 1,middleX - 1, "╠");
-                        else
-                            mvwprintw(win,middleY + 1,middleX - 1, "║");
-                    }
-                    else if (j != 0 && i != m.nbLine - 1) // Inside border
-                    {
-                        if (isBelowUncrossable(m.cells[i][j]))
-                        {
-                            if ((i+1) < m.nbLine && (j-1) >= 0 &&
-                                isBelowUncrossable(m.cells[i][j - 1]) &&
-                                isLeftUncrossable(m.cells[i + 1][j]))
-                                mvwprintw(win,middleY + 1,middleX - 1, "╬");
-                            else if ((i+1) < m.nbLine && (j-1) >= 0 &&
-                                     !isBelowUncrossable(m.cells[i][j - 1]) &&
-                                     isLeftUncrossable(m.cells[i + 1][j]))
-                                mvwprintw(win,middleY + 1,middleX - 1, "╠");
-                            else if ((i+1) < m.nbLine && (j-1) >= 0 &&
-                                     isBelowUncrossable(m.cells[i][j - 1]) &&
-                                     !isLeftUncrossable(m.cells[i + 1][j]))
-                                mvwprintw(win,middleY + 1,middleX - 1, "╩");
-                            else
-                                mvwprintw(win,middleY + 1,middleX - 1, "╚");
-                        }
-                        else
-                        {
-                            if ((i+1) < m.nbLine && (j-1) >= 0 &&
-                                isBelowUncrossable(m.cells[i][j - 1]) &&
-                                isLeftUncrossable(m.cells[i + 1][j]))
-                                mvwprintw(win,middleY + 1,middleX - 1, "╣");
-                            else if ((i+1) < m.nbLine && (j-1) >= 0 &&
-                                     isBelowUncrossable(m.cells[i][j - 1]) &&
-                                     !isLeftUncrossable(m.cells[i + 1][j]))
-                                mvwprintw(win,middleY + 1,middleX - 1, "╝");
-                            else
-                                mvwprintw(win,middleY + 1,middleX - 1, "║");
-                        }
-
-                        if (isAboveUncrossable(m.cells[i][j]) && i != 0)
-                        {
-                            if ((i-1) >= 0 && (j-1) >= 0 &&
-                            isLeftUncrossable(m.cells[i - 1][j]) &&
-                            isBelowUncrossable(m.cells[i - 1][j - 1]))
-                                mvwprintw(win,middleY - 1,middleX - 1, "╬");
-                            else if ((i-1) >= 0 && (j-1) >= 0 &&
-                            !isLeftUncrossable(m.cells[i - 1][j]) &&
-                            isBelowUncrossable(m.cells[i - 1][j - 1]))
-                                mvwprintw(win,middleY - 1,middleX - 1, "╦");
-                            else if ((i-1) >= 0 && (j-1) >= 0 &&
-                            isLeftUncrossable(m.cells[i - 1][j]) &&
-                            !isBelowUncrossable(m.cells[i - 1][j - 1]))
-                                mvwprintw(win,middleY - 1,middleX - 1, "╠");
-                            else
-                                mvwprintw(win,middleY - 1,middleX - 1, "╔");
-                        }
-                        /*else
-                        {
-
-                        }*/
-                    }
-                }
-
-                if (isAboveUncrossable(m.cells[i][j]))
-                {
-                    mvwprintw(win,middleY - 1,middleX, "═");
-                    if (j != m.nbCol - 1 && i == 0)
-                    {
-                        if (isRightUncrossable(m.cells[i][j]))
-                            mvwprintw(win,middleY - 1,middleX + 1, "╦");
-                        else
-                            mvwprintw(win,middleY - 1,middleX + 1, "═");
-                    }
-                    if (j != m.nbCol - 1 && i != 0)
-                    {
-                        if (isRightUncrossable(m.cells[i][j]))
-                        {
-                            if ((i - 1) >= 0 && (j+1) < m.nbCol &&
-                                isRightUncrossable(m.cells[i - 1][j]) &&
-                                isAboveUncrossable(m.cells[i][j + 1]))
-                                mvwprintw(win,middleY - 1,middleX + 1, "╬");
-                            else if ((i - 1) >= 0 && (j+1) < m.nbCol &&
-                                !isRightUncrossable(m.cells[i - 1][j]) &&
-                                isAboveUncrossable(m.cells[i][j + 1]))
-                                mvwprintw(win,middleY - 1,middleX + 1, "╦");//╦
-                            else if ((i - 1) >= 0 && (j+1) < m.nbCol &&
-                                isRightUncrossable(m.cells[i - 1][j]) &&
-                                !isAboveUncrossable(m.cells[i][j + 1]))
-                                mvwprintw(win,middleY - 1,middleX + 1, "╣");
-                            else
-                                mvwprintw(win,middleY - 1,middleX + 1, "╗");//╗
-
-                        }
-                        else
-                        {
-                            if ((i - 1) >= 0 && (j+1) < m.nbCol &&
-                                isRightUncrossable(m.cells[i - 1][j]) &&
-                                isAboveUncrossable(m.cells[i][j + 1]))
-                                mvwprintw(win,middleY - 1,middleX + 1, "╩");
-                            else if ((i - 1) >= 0 && (j+1) < m.nbCol &&
-                                isRightUncrossable(m.cells[i - 1][j]) &&
-                                !isAboveUncrossable(m.cells[i][j + 1]))
-                                mvwprintw(win,middleY - 1,middleX + 1, "╝");
-                            else
-                                mvwprintw(win,middleY - 1,middleX + 1, "═");
-                        }
-                    }
-                }
-                if (isRightUncrossable(m.cells[i][j]))
-                {
-                    mvwprintw(win,middleY,middleX + 1, "║");
-                    if (j == m.nbCol - 1 && i != m.nbLine - 1)
-                    {
-                        if (isBelowUncrossable(m.cells[i][j]))
-                            mvwprintw(win,middleY + 1,middleX + 1, "╣");
-                        else
-                            mvwprintw(win,middleY + 1,middleX + 1, "║");
-                    }
-                }
-                if (isBelowUncrossable(m.cells[i][j]))
-                {
-                    mvwprintw(win,middleY + 1,middleX, "═");
-                    if (j != m.nbCol - 1 && i == m.nbLine - 1)
-                    {
-                        if (isRightUncrossable(m.cells[i][j]))
-                            mvwprintw(win,middleY + 1,middleX + 1, "╩");
-                        else
-                            mvwprintw(win,middleY + 1,middleX + 1, "═");
-                    }
-                }
-
-                if (i == 0 && j == 0)
-                    mvwprintw(win, middleY - 1, middleX - 1, "╔");
-                if (i == m.nbLine - 1 && j == 0)
-                    mvwprintw(win, middleY + 1, middleX - 1, "╚");
-                if (i == 0 && j == m.nbCol - 1)
-                    mvwprintw(win, middleY - 1, middleX + 1, "╗");
-                if (i == m.nbLine - 1 && j == m.nbCol - 1)
-                    mvwprintw(win, middleY + 1, middleX + 1, "╝");
-
-                if (m.entrypoint.x == j && m.entrypoint.y == i)
-                    mvwprintw(win, middleY, middleX, "E");
-                if (m.out.x == j && m.out.y == i)
-                    mvwprintw(win, middleY, middleX, "S");
-                middleX += 2;
-            }
-            middleX = 5;
-            middleY += 2;
-        }
+        printMaze(win, (Position){
+            .x = 5,
+            .y = 5
+        }, m);
         choice = wgetch(win);
     } while (choice != 'q');
 
@@ -207,22 +54,7 @@ int main(int argc, char ** argv) {
     free(m.cells);
     m.cells = NULL;
     endwin();
-    /*ncursesInit();
-    ncursesInitMouse();
-    ncursesInitColors();*/
-
-    /*MazeCell aboveWall = 0;
-    SET_BIT(aboveWall, 3);
-
-    MazeCell leftWall = 0;
-    SET_BIT(leftWall, 2);
-
-    MazeCell belowWall = 0;
-    SET_BIT(belowWall, 1);
-
-    MazeCell rightWall = 0;
-    SET_BIT(rightWall, 0);*/
-
+    return EXIT_SUCCESS;
     /*int choice;
     do
     {
@@ -270,5 +102,4 @@ int main(int argc, char ** argv) {
                 break;
         }
     } while (choice != 2);*/
-    return EXIT_SUCCESS;
 }

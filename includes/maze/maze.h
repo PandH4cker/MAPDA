@@ -15,5 +15,6 @@ typedef struct Maze
 }Maze;
 
 Maze fromFile(const char * filename);
+void printMaze(WINDOW * win, Position startPrinting, Maze m);
 
 #endif //MAPDA_MAZE_H
