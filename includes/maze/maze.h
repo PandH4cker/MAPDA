@@ -7,6 +7,21 @@
 
 #include "mazeCell.h"
 
+#define HORIZONTAL_PIPE "═"
+#define HALF_ABOVE_HORIZONTAL_PIPE "╩"
+#define HALF_BELOW_HORIZONTAL_PIPE "╦"
+#define VERTICAL_PIPE "║"
+#define HALF_RIGHT_VERTICAL_PIPE "╠"
+#define HALF_LEFT_VERTICAL_PIPE "╣"
+#define FULL_VERTICAL_PIPE "╬"
+#define TOP_LEFT_CORNER "╔"
+#define BOTTOM_LEFT_CORNER "╚"
+#define TOP_RIGHT_CORNER "╗"
+#define BOTTOM_RIGHT_CORNER "╝"
+#define MAZE_ENTRYPOINT "E"
+#define MAZE_OUT "S"
+
+
 typedef struct Maze
 {
     int nbLine, nbCol;
