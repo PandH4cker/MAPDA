@@ -49,14 +49,14 @@ int main(int argc, char ** argv) {
                 if (isLeftUncrossable(m.cells[i][j]))
                 {
                     mvwprintw(win,middleY,middleX - 1, "║");
-                    if (j == 0 && i != m.nbLine - 1)
+                    if (j == 0 && i != m.nbLine - 1) // Left border
                     {
                         if (isBelowUncrossable(m.cells[i][j]))
                             mvwprintw(win,middleY + 1,middleX - 1, "╠");
                         else
                             mvwprintw(win,middleY + 1,middleX - 1, "║");
                     }
-                    else if (j != 0 && i != m.nbLine - 1)
+                    else if (j != 0 && i != m.nbLine - 1) // Inside border
                     {
                         if (isBelowUncrossable(m.cells[i][j]))
                         {
@@ -88,6 +88,28 @@ int main(int argc, char ** argv) {
                             else
                                 mvwprintw(win,middleY + 1,middleX - 1, "║");
                         }
+
+                        if (isAboveUncrossable(m.cells[i][j]) && i != 0)
+                        {
+                            if ((i-1) >= 0 && (j-1) >= 0 &&
+                            isLeftUncrossable(m.cells[i - 1][j]) &&
+                            isBelowUncrossable(m.cells[i - 1][j - 1]))
+                                mvwprintw(win,middleY - 1,middleX - 1, "╬");
+                            else if ((i-1) >= 0 && (j-1) >= 0 &&
+                            !isLeftUncrossable(m.cells[i - 1][j]) &&
+                            isBelowUncrossable(m.cells[i - 1][j - 1]))
+                                mvwprintw(win,middleY - 1,middleX - 1, "╦");
+                            else if ((i-1) >= 0 && (j-1) >= 0 &&
+                            isLeftUncrossable(m.cells[i - 1][j]) &&
+                            !isBelowUncrossable(m.cells[i - 1][j - 1]))
+                                mvwprintw(win,middleY - 1,middleX - 1, "╠");
+                            else
+                                mvwprintw(win,middleY - 1,middleX - 1, "╔");
+                        }
+                        /*else
+                        {
+
+                        }*/
                     }
                 }
 
