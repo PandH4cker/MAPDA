@@ -31,7 +31,7 @@ typedef struct Maze
 
 Maze newMaze(int line, int column, Position entrypoint, Position out);
 Maze fromFile(const char * filename);
-Maze randomMaze(int size);
+Maze randomMaze(int width, int height);
 void printMaze(WINDOW * win, Position startPrinting, Maze m);
 void printCell(WINDOW *win, Position *startPrinting, Maze *maze, int line, int column);
 

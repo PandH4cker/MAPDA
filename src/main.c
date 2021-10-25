@@ -9,7 +9,7 @@ int main(int argc, char ** argv) {
     srand(time(NULL));
 
     //Maze m = fromFile("../ExampleMaze");
-    Maze m = randomMaze(10);
+    Maze m = randomMaze(10, 10);
 
     puts("Loaded a Maze:");
     printf("\tWidth: %d\n", m.nbCol);

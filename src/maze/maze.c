@@ -8,10 +8,10 @@
 #include "../../includes/maze/maze.h"
 #include "../../includes/utils/random.h"
 
-Maze randomMaze(int size)
+Maze randomMaze(int width, int height)
 {
-    Maze maze = newMaze(size, size, (Position) {.x = RAND(0, size - 1),.y = RAND(0, size - 1)},
-                        (Position) {.x = RAND(0, size - 1),.y = RAND(0, size - 1)});
+    Maze maze = newMaze(width, height, (Position) {.x = RAND(0, height - 1),.y = RAND(0, width - 1)},
+                        (Position) {.x = RAND(0, height - 1),.y = RAND(0, width - 1)});
     for (int i = 0; i < maze.nbLine; ++i)
         for (int j = 0; j < maze.nbCol; ++j)
         {
@@ -27,13 +27,13 @@ Maze randomMaze(int size)
             {
                 if (j == 0)
                 {
-                    wallToBreak = EVEN_RAND(0, 4);
+                    wallToBreak = EVEN_RAND(0, 2);
                     SET_BIT(wallToBreak, 0);
                     SET_BIT(wallToBreak, 3);
                 }
                 else if (j != maze.nbCol - 1)
                 {
-                    wallToBreak = RAND(0, 5);
+                    wallToBreak = EVEN_RAND(0, 8);
                     SET_BIT(wallToBreak, 3);
                     if (isRightUncrossable(maze.cells[i][j - 1]))
                         addLeftWall(&wallToBreak);
@@ -55,7 +55,7 @@ Maze randomMaze(int size)
             {
                 if (j == 0)
                 {
-                    wallToBreak = RAND(0, 5);
+                    wallToBreak = EVEN_RAND(0, 8);
                     SET_BIT(wallToBreak, 0);
                     if (isBelowUncrossable(maze.cells[i - 1][j]))
                         addAboveWall(&wallToBreak);
@@ -64,7 +64,7 @@ Maze randomMaze(int size)
                 }
                 else if (j != maze.nbCol - 1)
                 {
-                    wallToBreak = RAND(0, 5);
+                    wallToBreak = EVEN_RAND(0, 8);
                     if (isBelowUncrossable(maze.cells[i - 1][j]))
                         addAboveWall(&wallToBreak);
                     else if (CHECK_BIT(wallToBreak, 3))
@@ -77,7 +77,7 @@ Maze randomMaze(int size)
                 }
                 else
                 {
-                    wallToBreak = RAND(0, 5);
+                    wallToBreak = EVEN_RAND(0, 8);
                     SET_BIT(wallToBreak, 2);
                     if (isBelowUncrossable(maze.cells[i - 1][j]))
                         addAboveWall(&wallToBreak);
@@ -94,7 +94,7 @@ Maze randomMaze(int size)
             {
                 if (j == 0)
                 {
-                    wallToBreak = RAND(0, 5);
+                    wallToBreak = EVEN_RAND(0, 8);
                     SET_BIT(wallToBreak, 0);
                     SET_BIT(wallToBreak, 1);
                     if (isBelowUncrossable(maze.cells[i - 1][j]))
@@ -104,7 +104,7 @@ Maze randomMaze(int size)
                 }
                 else if (j != maze.nbCol - 1)
                 {
-                    wallToBreak = RAND(0, 5);
+                    wallToBreak = EVEN_RAND(0, 8);
                     SET_BIT(wallToBreak, 1);
                     if (isRightUncrossable(maze.cells[i][j - 1]))
                         addLeftWall(&wallToBreak);
@@ -118,7 +118,7 @@ Maze randomMaze(int size)
                 }
                 else
                 {
-                    wallToBreak = RAND(0, 5);
+                    wallToBreak = EVEN_RAND(0, 8);
                     SET_BIT(wallToBreak, 1);
                     SET_BIT(wallToBreak, 2);
                     if (isBelowUncrossable(maze.cells[i - 1][j]))
@@ -364,7 +364,15 @@ void printCell(WINDOW *win, Position *startPrinting, Maze *maze, int line, int c
         mvwprintw(win, startPrinting->y + 1, startPrinting->x + 1, BOTTOM_RIGHT_CORNER);
 
     if (maze->entrypoint.x == column && maze->entrypoint.y == line)
+    {
+        wattron(win, COLOR_PAIR(2));
         mvwprintw(win, startPrinting->y, startPrinting->x, MAZE_ENTRYPOINT);
+        wattron(win, COLOR_PAIR(3));
+    }
     if (maze->out.x == column && maze->out.y == line)
+    {
+        wattron(win, COLOR_PAIR(7));
         mvwprintw(win, startPrinting->y, startPrinting->x, MAZE_OUT);
+        wattron(win, COLOR_PAIR(3));
+    }
 }
