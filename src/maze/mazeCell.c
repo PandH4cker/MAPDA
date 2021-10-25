@@ -5,6 +5,26 @@
 #include "../../includes/maze/mazeCell.h"
 #include "../../includes/utils/bits.h"
 
+void addAboveWall(CellValue * cellValue)
+{
+    SET_BIT(*cellValue, 3);
+}
+
+void addRightWall(CellValue * cellValue)
+{
+    SET_BIT(*cellValue, 2);
+}
+
+void addBelowWall(CellValue * cellValue)
+{
+    SET_BIT(*cellValue, 1);
+}
+
+void addLeftWall(CellValue * cellValue)
+{
+    SET_BIT(*cellValue, 0);
+}
+
 bool isAboveUncrossable(MazeCell cell)
 {
     return CHECK_BIT(cell.cellValue, 3);
@@ -23,11 +43,4 @@ bool isBelowUncrossable(MazeCell cell)
 bool isLeftUncrossable(MazeCell cell)
 {
     return CHECK_BIT(cell.cellValue, 0);
-}
-
-void printCell(MazeCell cell, WINDOW * win)
-{
-    int x = 0, y = 0;
-    getyx(win, y, x);
-    printw("(%d, %d)", x, y);
 }

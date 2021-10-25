@@ -29,7 +29,10 @@ typedef struct Maze
     MazeCell ** cells;
 }Maze;
 
+Maze newMaze(int line, int column, Position entrypoint, Position out);
 Maze fromFile(const char * filename);
+Maze randomMaze(int size);
 void printMaze(WINDOW * win, Position startPrinting, Maze m);
+void printCell(WINDOW *win, Position *startPrinting, Maze *maze, int line, int column);
 
 #endif //MAPDA_MAZE_H

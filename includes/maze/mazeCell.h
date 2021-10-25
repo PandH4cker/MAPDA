@@ -26,6 +26,10 @@ bool isAboveUncrossable(MazeCell cell);
 bool isBelowUncrossable(MazeCell cell);
 bool isLeftUncrossable(MazeCell cell);
 bool isRightUncrossable(MazeCell cell);
-void printCell(MazeCell cell, WINDOW * win);
+void addAboveWall(CellValue * cellValue);
+void addBelowWall(CellValue * cellValue);
+void addLeftWall(CellValue * cellValue);
+void addRightWall(CellValue * cellValue);
+
 
 #endif //MAPDA_MAZECELL_H
