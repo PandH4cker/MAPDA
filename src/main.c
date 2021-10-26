@@ -2,6 +2,7 @@
 #include <locale.h>
 #include <time.h>
 #include <stdio.h>
+#include <string.h>
 
 #include "../includes/maze/maze.h"
 #include "../includes/pathfinding/pathfinding.h"
@@ -11,8 +12,21 @@ int main(int argc, char ** argv) {
     setlocale(LC_ALL, "");
     srand(time(NULL));
 
-    //Maze m = fromFile("../ExampleMaze");
-    Maze m = randomMaze(20, 40);
+    Maze m;
+    if (argc < 3)
+    {
+        fprintf(stderr, "Usage: %s [-f <filename> | -r <width> <height>]\n", argv[0]);
+        exit(EXIT_FAILURE);
+    }
+    if (strcmp(argv[1], "-f") == 0)
+        m = fromFile(argv[2]);
+    else if (strcmp(argv[1], "-r") == 0 && argc < 5)
+        m = randomMaze(atoi(argv[2]), atoi(argv[3]));
+    else
+    {
+        fprintf(stderr, "Usage: %s [-f <filename> | -r <width> <height>]\n", argv[0]);
+        exit(EXIT_FAILURE);
+    }
 
     puts("Loaded a Maze:");
     printf("\tWidth: %d\n", m.nbCol);
