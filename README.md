@@ -1,6 +1,7 @@
 # MAPDA 
 
 ## Installation:
+### Windows:
 You need to install [cmake](https://cmake.org/install/) first to then build the project.
 
 ```bash
@@ -9,6 +10,12 @@ cmake
 cd ./build
 cmake --build .
 ./MAPDA
+```
+
+### Linux:
+```bash
+git clone git@github.com:MrrRaph/MAPDA.git
+make
 ```
 
 ## Usage:
