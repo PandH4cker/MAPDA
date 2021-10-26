@@ -1,15 +1,18 @@
 #include <stdlib.h>
 #include <locale.h>
 #include <time.h>
+#include <stdio.h>
 
 #include "../includes/maze/maze.h"
+#include "../includes/pathfinding/pathfinding.h"
+
 
 int main(int argc, char ** argv) {
     setlocale(LC_ALL, "");
     srand(time(NULL));
 
     //Maze m = fromFile("../ExampleMaze");
-    Maze m = randomMaze(10, 10);
+    Maze m = randomMaze(20, 40);
 
     puts("Loaded a Maze:");
     printf("\tWidth: %d\n", m.nbCol);
@@ -23,8 +26,11 @@ int main(int argc, char ** argv) {
             printf("%2d ", m.cells[i][j].cellValue);
         puts("");
     }
+    m.resolver = m.entrypoint;
+
     ncursesInit();
     int choice;
+    int status;
     do
     {
         clear();
@@ -48,14 +54,17 @@ int main(int argc, char ** argv) {
             .x = 5,
             .y = 5
         }, m);
+
+        status = findPath(&m);
+
+        wtimeout(win, 100);
         choice = wgetch(win);
     } while (choice != 'q');
-
+    endwin();
 
     for (int i = 0; i < m.nbLine; ++i) free(m.cells[i]);
     free(m.cells);
     m.cells = NULL;
-    endwin();
     return EXIT_SUCCESS;
     /*int choice;
     do

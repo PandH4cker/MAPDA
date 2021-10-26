@@ -25,7 +25,7 @@
 typedef struct Maze
 {
     int nbLine, nbCol;
-    Position entrypoint, out;
+    Position entrypoint, out, resolver;
     MazeCell ** cells;
 }Maze;
 

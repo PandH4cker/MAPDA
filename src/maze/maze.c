@@ -10,8 +10,10 @@
 
 Maze randomMaze(int width, int height)
 {
-    Maze maze = newMaze(width, height, (Position) {.x = RAND(0, height - 1),.y = RAND(0, width - 1)},
-                        (Position) {.x = RAND(0, height - 1),.y = RAND(0, width - 1)});
+    Position entrypoint = {.x = RAND(0, height - 1),.y = RAND(0, width - 1)};
+    Position out = {.x = RAND(0, height - 1),.y = RAND(0, width - 1)};
+
+    Maze maze = newMaze(width, height, entrypoint, out);
     for (int i = 0; i < maze.nbLine; ++i)
         for (int j = 0; j < maze.nbCol; ++j)
         {
@@ -373,6 +375,19 @@ void printCell(WINDOW *win, Position *startPrinting, Maze *maze, int line, int c
     {
         wattron(win, COLOR_PAIR(7));
         mvwprintw(win, startPrinting->y, startPrinting->x, MAZE_OUT);
+        wattron(win, COLOR_PAIR(3));
+    }
+    if (maze->resolver.x == column && maze->resolver.y == line)
+    {
+        wattron(win, COLOR_PAIR(6));
+        mvwprintw(win, startPrinting->y, startPrinting->x, "Θ");
+        wattron(win, COLOR_PAIR(3));
+    }
+    if (maze->resolver.x == maze->out.x && maze->resolver.y == maze->out.y)
+    {
+        wattron(win, COLOR_PAIR(4));
+        if (CHECK_BIT(maze->cells[line][column].cellValue, 9))
+            mvwprintw(win, startPrinting->y, startPrinting->x, "■");
         wattron(win, COLOR_PAIR(3));
     }
 }
