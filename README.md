@@ -28,3 +28,5 @@ Or from a file:
 ```bash
 ./MAPDA -f filename
 ```
+
+![img.png](img.png)
