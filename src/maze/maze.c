@@ -164,7 +164,7 @@ Maze fromFile(const char * filename)
     Position entrypoint, out;
     int nbLine, nbCol;
 
-    if (fscanf(f, "%d%d%d%d%d%d", &nbLine, &nbCol, &entrypoint.x, &entrypoint.y, &out.x, &out.y) != EOF)
+    if (fscanf(f, "%d%d%d%d%d%d", &nbLine, &nbCol, &entrypoint.y, &entrypoint.x, &out.y, &out.x) != EOF)
     {
         Maze maze = newMaze(nbLine, nbCol, entrypoint, out);
 

@@ -71,6 +71,19 @@ int main(int argc, char ** argv) {
 
         status = findPath(&m);
 
+        if (status == 0)
+        {
+            wattron(win, COLOR_PAIR(8));
+            mvwprintw(win, 3, 3, "A solution has been found !");
+            wattron(win, COLOR_PAIR(3));
+        }
+        else if (status == -1)
+        {
+            wattron(win, COLOR_PAIR(9));
+            mvwprintw(win, 3, 3, "No solution found for this maze !");
+            wattron(win, COLOR_PAIR(3));
+        }
+
         wtimeout(win, 100);
         choice = wgetch(win);
     } while (choice != 'q');
@@ -80,6 +93,8 @@ int main(int argc, char ** argv) {
     free(m.cells);
     m.cells = NULL;
     return EXIT_SUCCESS;
+
+
     /*int choice;
     do
     {

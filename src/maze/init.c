@@ -23,6 +23,9 @@ void ncursesInitColors()
     init_pair(5, COLOR_BLUE,  COLOR_BLACK);
     init_pair(6, COLOR_YELLOW,COLOR_BLUE);
     init_pair(7, COLOR_RED, COLOR_RED);
+    init_pair(7, COLOR_RED, COLOR_RED);
+    init_pair(8, COLOR_GREEN, COLOR_BLUE);
+    init_pair(9, COLOR_RED, COLOR_BLUE);
 }
 
 void ncursesInit()
